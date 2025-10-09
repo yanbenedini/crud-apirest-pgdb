@@ -1,8 +1,13 @@
 import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3001;
 
+// Middlewares
+app.use(express.json())
+app.use(cors);
 
 app.get("/", (req, res) => {
     res.send("Achou");
@@ -18,6 +23,6 @@ app.post("/users", (req, res) => {
 })
 
 
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`)
+app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`)
 });
