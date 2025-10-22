@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: banco-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senha123
+      POSTGRES_DB: api_cafe
+    ports:
+      - "5432:5432"
+    volumes:
+      - "C:/projetos/crud-apirest-pgdb/postgres-data:/var/lib/postgresql/17/data"

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Módulos e Saída */
-    "target": "ES2022",                /* Versão de JS de saída: moderna e compatível com Node.js atual. */
+    "target": "esnext",                /* Versão de JS de saída: moderna e compatível com Node.js atual. */
     "module": "NodeNext",               /* Sistema de módulos: essencial para usar "import/export" no Node.js. */
     "moduleResolution": "NodeNext",     /* Como o TS resolve o caminho dos imports (usa a lógica do Node moderno). */
     "outDir": "./dist",                 /* Pasta para onde o JS transpilado será enviado. */
@@ -21,5 +21,5 @@
     "noUncheckedIndexedAccess": true,   /* Aumenta a segurança ao acessar elementos de arrays e objetos. */
     "noUnusedLocals": true,             /* Avisa sobre variáveis locais que não estão sendo usadas. */
     "noUnusedParameters": true          /* Avisa sobre parâmetros de função que não estão sendo usados. */
-  },
+  }
 }
