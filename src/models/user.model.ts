@@ -1,12 +1,19 @@
-export class User {
+export interface User {
     id: number;
     nome: string;
     email: string;
+    senha: string;
+    created_at?: Date;
+    updated_at?: Date;
+}
 
-    private static counter = 1;
-    constructor(nome: string, email:string) {
-        this.id = User.counter++;
-        this.nome = nome;
-        this.email = email;
-    }
+export interface UserCreate {
+    nome: string;
+    email: string;
+    senha: string;
+}
+
+export interface UserLogin {
+    email: string;
+    senha: string;
 }

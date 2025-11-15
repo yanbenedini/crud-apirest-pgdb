@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "compilerOptions": {
     /* Módulos e Saída */
     "target": "esnext",                /* Versão de JS de saída: moderna e compatível com Node.js atual. */
