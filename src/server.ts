@@ -8,6 +8,10 @@ import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
+// Swagger
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -18,16 +22,19 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Swagger (sem dist)
+const swaggerDocument = YAML.load(
+    join(__dirname, 'swagger', 'swagger.yaml')
+);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // Rotas
 app.get('/', (_, res: Response) => {
-    res.json({ 
+    res.json({
         message: 'API de Controle de Estoque',
         version: '1.0.0',
-        endpoints: {
-            usuarios: '/api/usuarios',
-            fornecedores: '/api/fornecedores',
-            produtos: '/api/produtos'
-        }
+        docs: '/api-docs'
     });
 });
 
@@ -35,27 +42,27 @@ app.use('/api/usuarios', userRouter);
 app.use('/api/fornecedores', fornecedorRouter);
 app.use('/api/produtos', produtoRouter);
 
-// Inicializar banco de dados
+// Inicializar banco
 async function initializeDatabase() {
     try {
-        const schemaPath = join(__dirname, 'database', 'schema.sql');
-        const schema = readFileSync(schemaPath, 'utf-8');
-        
-        // Executa o schema SQL
+        const schema = readFileSync(
+            join(__dirname, 'database', 'schema.sql'),
+            'utf-8'
+        );
+
         await pool.query(schema);
-        console.log('✅ Banco de dados inicializado com sucesso!');
+        console.log('✅ Banco inicializado');
     } catch (error: any) {
         if (error.code === '42P07') {
-            // Tabela já existe
-            console.log('ℹ️  Tabelas já existem no banco de dados');
+            console.log('ℹ️  Tabelas já existem');
         } else {
-            console.error('❌ Erro ao inicializar banco de dados:', error.message);
+            console.error('❌ Erro ao inicializar BD:', error.message);
         }
     }
 }
 
-// Iniciar servidor
 app.listen(PORT, async () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
+    console.log(`📄 Swagger disponível em http://localhost:${PORT}/api-docs`);
     await initializeDatabase();
 });

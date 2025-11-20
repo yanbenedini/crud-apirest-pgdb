@@ -1,0 +1,345 @@
+openapi: 3.0.0
+info:
+  title: API de Controle de Estoque
+  version: 1.0.0
+  description: Documentação da API utilizando Swagger
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  # --------------------------
+  # USUÁRIOS
+  # --------------------------
+  /api/usuarios/cadastro:
+    post:
+      summary: Criar um novo usuário
+      tags: [Usuarios]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nome, email, senha]
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        201:
+          description: Usuário criado com sucesso
+        400:
+          description: Erro ao criar usuário
+
+  /api/usuarios/login:
+    post:
+      summary: Realizar login
+      tags: [Usuarios]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, senha]
+              properties:
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        200:
+          description: Login realizado com sucesso (retorna token JWT)
+        401:
+          description: Credenciais inválidas
+
+  /api/usuarios:
+    get:
+      summary: Listar usuários
+      tags: [Usuarios]
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Lista de usuários
+
+  /api/usuarios/{id}:
+    get:
+      summary: Buscar usuário por ID
+      tags: [Usuarios]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Dados do usuário
+    put:
+      summary: Atualizar usuário
+      tags: [Usuarios]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        200:
+          description: Usuário atualizado
+    delete:
+      summary: Deletar usuário
+      tags: [Usuarios]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Usuário removido
+
+  # --------------------------
+  # FORNECEDORES
+  # --------------------------
+  /api/fornecedores:
+    post:
+      summary: Criar fornecedor
+      tags: [Fornecedores]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nome, contato]
+              properties:
+                nome:
+                  type: string
+                contato:
+                  type: string
+      responses:
+        201:
+          description: Fornecedor criado
+
+    get:
+      summary: Listar fornecedores
+      tags: [Fornecedores]
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Lista de fornecedores
+
+  /api/fornecedores/{id}:
+    get:
+      summary: Buscar fornecedor por ID
+      tags: [Fornecedores]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Dados do fornecedor
+
+    put:
+      summary: Atualizar fornecedor
+      tags: [Fornecedores]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                contato:
+                  type: string
+      responses:
+        200:
+          description: Fornecedor atualizado
+
+    delete:
+      summary: Remover fornecedor
+      tags: [Fornecedores]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Fornecedor removido
+
+  # --------------------------
+  # PRODUTOS
+  # --------------------------
+  /api/produtos:
+    post:
+      summary: Criar produto
+      tags: [Produtos]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nome, quantidade, fornecedor_id]
+              properties:
+                nome:
+                  type: string
+                quantidade:
+                  type: integer
+                fornecedor_id:
+                  type: integer
+      responses:
+        201:
+          description: Produto criado
+
+    get:
+      summary: Listar produtos
+      tags: [Produtos]
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Lista de produtos
+
+  /api/produtos/{id}:
+    get:
+      summary: Buscar produto por ID
+      tags: [Produtos]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Dados do produto
+
+    put:
+      summary: Atualizar produto
+      tags: [Produtos]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nome, quantidade, fornecedor_id]
+              properties:
+                nome:
+                  type: string
+                quantidade:
+                  type: integer
+                fornecedor_id:
+                  type: integer
+      responses:
+        200:
+          description: Produto atualizado
+
+    delete:
+      summary: Remover produto
+      tags: [Produtos]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Produto removido
+
+  /api/produtos/{id}/quantidade:
+    patch:
+      summary: Atualizar quantidade do produto
+      tags: [Produtos]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [quantidade]
+              properties:
+                quantidade:
+                  type: integer
+      responses:
+        200:
+          description: Quantidade atualizada
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
