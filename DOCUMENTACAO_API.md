@@ -1,10 +1,10 @@
-# 📚 Documentação Completa da API
+# Documentação Completa da API
 
 **Base URL:** `http://localhost:3000/api`
 
 ---
 
-## 🔐 Autenticação
+## Autenticação
 
 Todas as rotas protegidas requerem um token JWT no header `Authorization`:
 
@@ -16,12 +16,12 @@ O token é obtido através do endpoint de login em `/api/usuarios/login`.
 
 ---
 
-## 👥 Usuários
+## Usuários
 
 ### 1. Cadastrar Usuário
 
 **Endpoint:** `POST /api/usuarios/cadastro`  
-**Autenticação:** ❌ Não requerida (público)
+**Autenticação:** Não requerida (público)
 
 #### Headers
 ```
@@ -60,7 +60,7 @@ Content-Type: application/json
 ### 2. Login
 
 **Endpoint:** `POST /api/usuarios/login`  
-**Autenticação:** ❌ Não requerida (público)
+**Autenticação:** Não requerida (público)
 
 #### Headers
 ```
@@ -100,7 +100,7 @@ Content-Type: application/json
 ### 3. Listar Todos os Usuários
 
 **Endpoint:** `GET /api/usuarios`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -139,7 +139,7 @@ Não requerido
 ### 4. Buscar Usuário por ID
 
 **Endpoint:** `GET /api/usuarios/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -174,7 +174,7 @@ Não requerido
 ### 5. Atualizar Usuário
 
 **Endpoint:** `PUT /api/usuarios/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -234,7 +234,7 @@ Content-Type: application/json
 ### 6. Deletar Usuário
 
 **Endpoint:** `DELETE /api/usuarios/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -262,12 +262,12 @@ Não requerido
 
 ---
 
-## 🏢 Fornecedores
+## Fornecedores
 
 ### 1. Criar Fornecedor
 
 **Endpoint:** `POST /api/fornecedores`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -322,7 +322,7 @@ Content-Type: application/json
 ### 2. Listar Todos os Fornecedores
 
 **Endpoint:** `GET /api/fornecedores`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -367,7 +367,7 @@ Não requerido
 ### 3. Buscar Fornecedor por ID
 
 **Endpoint:** `GET /api/fornecedores/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -405,7 +405,7 @@ Não requerido
 ### 4. Atualizar Fornecedor
 
 **Endpoint:** `PUT /api/fornecedores/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -462,7 +462,7 @@ Content-Type: application/json
 ### 5. Deletar Fornecedor
 
 **Endpoint:** `DELETE /api/fornecedores/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -490,12 +490,12 @@ Não requerido
 
 ---
 
-## 📦 Produtos
+## Produtos
 
 ### 1. Criar Produto
 
 **Endpoint:** `POST /api/produtos`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -519,8 +519,8 @@ Content-Type: application/json
 - `nome` (string)
 - `preco` (number, decimal)
 - `quantidade` (number, inteiro)
-- `categoria` (string) ⚠️ **OBRIGATÓRIO**
-- `fornecedor_id` (number) ⚠️ **OBRIGATÓRIO**
+- `categoria` (string) **OBRIGATÓRIO**
+- `fornecedor_id` (number) **OBRIGATÓRIO**
 
 **Campos opcionais:**
 - `descricao` (string)
@@ -560,7 +560,7 @@ Content-Type: application/json
 ### 2. Listar Todos os Produtos
 
 **Endpoint:** `GET /api/produtos`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -627,7 +627,7 @@ Não requerido
 ### 3. Buscar Produto por ID
 
 **Endpoint:** `GET /api/produtos/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -674,7 +674,7 @@ Não requerido
 ### 4. Atualizar Produto
 
 **Endpoint:** `PUT /api/produtos/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -749,7 +749,7 @@ Content-Type: application/json
 ### 5. Deletar Produto
 
 **Endpoint:** `DELETE /api/produtos/:id`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -780,7 +780,7 @@ Não requerido
 ### 6. Atualizar Quantidade do Produto
 
 **Endpoint:** `PATCH /api/produtos/:id/quantidade`  
-**Autenticação:** ✅ Requerida
+**Autenticação:** Requerida
 
 #### Headers
 ```
@@ -850,7 +850,7 @@ Content-Type: application/json
 
 ---
 
-## 📊 Resumo de Endpoints
+## Resumo de Endpoints
 
 ### Rotas Públicas (não requerem autenticação)
 | Método | Endpoint | Descrição |
@@ -890,7 +890,7 @@ Content-Type: application/json
 
 ---
 
-## 🔑 Códigos de Status HTTP
+## Códigos de Status HTTP
 
 | Código | Descrição | Quando ocorre |
 |--------|-----------|---------------|
@@ -904,7 +904,7 @@ Content-Type: application/json
 
 ---
 
-## 🛠️ Exemplos de Uso com cURL
+## Exemplos de Uso com cURL
 
 ### Cadastrar Usuário
 ```bash
@@ -961,7 +961,7 @@ curl -X PUT http://localhost:3000/api/produtos/1 \
 
 ---
 
-## 📝 Notas Importantes
+## Notas Importantes
 
 1. **Autenticação:** Todas as rotas protegidas requerem o header `Authorization: Bearer <token>`
 2. **Token JWT:** O token expira em 24 horas (configurável)
@@ -975,6 +975,4 @@ curl -X PUT http://localhost:3000/api/produtos/1 \
 6. **Categoria e Fornecedor:** São obrigatórios na criação de produtos
 
 ---
-
-**Última atualização:** Janeiro 2024
 
