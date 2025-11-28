@@ -25,15 +25,20 @@ paths:
               properties:
                 nome:
                   type: string
+                  example: "João Silva"
                 email:
                   type: string
+                  format: email
+                  example: "joao@email.com"
                 senha:
                   type: string
+                  format: password
+                  example: "123456"
       responses:
         201:
           description: Usuário criado com sucesso
         400:
-          description: Erro ao criar usuário
+          description: Erro ao criar usuário (dados inválidos ou email duplicado)
 
   /api/usuarios/login:
     post:
@@ -49,8 +54,12 @@ paths:
               properties:
                 email:
                   type: string
+                  format: email
+                  example: "joao@email.com"
                 senha:
                   type: string
+                  format: password
+                  example: "123456"
       responses:
         200:
           description: Login realizado com sucesso (retorna token JWT)
@@ -82,6 +91,8 @@ paths:
       responses:
         200:
           description: Dados do usuário
+        404:
+          description: Usuário não encontrado
     put:
       summary: Atualizar usuário
       tags: [Usuarios]
@@ -109,6 +120,8 @@ paths:
       responses:
         200:
           description: Usuário atualizado
+        404:
+          description: Usuário não encontrado
     delete:
       summary: Deletar usuário
       tags: [Usuarios]
@@ -123,6 +136,8 @@ paths:
       responses:
         200:
           description: Usuário removido
+        404:
+          description: Usuário não encontrado
 
   # --------------------------
   # FORNECEDORES
@@ -139,15 +154,28 @@ paths:
           application/json:
             schema:
               type: object
-              required: [nome, contato]
+              required: [nome, cnpj]
               properties:
                 nome:
                   type: string
-                contato:
+                  example: "Distribuidora XYZ"
+                cnpj:
                   type: string
+                  example: "00.000.000/0001-99"
+                email:
+                  type: string
+                  example: "contato@xyz.com"
+                telefone:
+                  type: string
+                  example: "(11) 99999-9999"
+                endereco:
+                  type: string
+                  example: "Rua Industrial, 100"
       responses:
         201:
           description: Fornecedor criado
+        400:
+          description: Erro de validação (CNPJ já existe ou campos faltando)
 
     get:
       summary: Listar fornecedores
@@ -173,6 +201,8 @@ paths:
       responses:
         200:
           description: Dados do fornecedor
+        404:
+          description: Fornecedor não encontrado
 
     put:
       summary: Atualizar fornecedor
@@ -194,11 +224,19 @@ paths:
               properties:
                 nome:
                   type: string
-                contato:
+                cnpj:
+                  type: string
+                email:
+                  type: string
+                telefone:
+                  type: string
+                endereco:
                   type: string
       responses:
         200:
           description: Fornecedor atualizado
+        404:
+          description: Fornecedor não encontrado
 
     delete:
       summary: Remover fornecedor
@@ -214,6 +252,8 @@ paths:
       responses:
         200:
           description: Fornecedor removido
+        404:
+          description: Fornecedor não encontrado
 
   # --------------------------
   # PRODUTOS
@@ -230,23 +270,44 @@ paths:
           application/json:
             schema:
               type: object
-              required: [nome, quantidade, fornecedor_id]
+              required: [nome, preco, quantidade, categoria, fornecedor_id]
               properties:
                 nome:
                   type: string
+                  example: "Teclado Mecânico"
+                descricao:
+                  type: string
+                  example: "Switch Blue, RGB"
+                preco:
+                  type: number
+                  format: float
+                  example: 150.50
                 quantidade:
                   type: integer
+                  example: 50
+                categoria:
+                  type: string
+                  example: "Periféricos"
                 fornecedor_id:
                   type: integer
+                  example: 1
       responses:
         201:
           description: Produto criado
+        400:
+          description: Campos obrigatórios faltando ou inválidos
 
     get:
       summary: Listar produtos
       tags: [Produtos]
       security:
         - BearerAuth: []
+      parameters:
+        - in: query
+          name: categoria
+          schema:
+            type: string
+          description: Filtrar produtos por categoria
       responses:
         200:
           description: Lista de produtos
@@ -266,6 +327,8 @@ paths:
       responses:
         200:
           description: Dados do produto
+        404:
+          description: Produto não encontrado
 
     put:
       summary: Atualizar produto
@@ -284,17 +347,24 @@ paths:
           application/json:
             schema:
               type: object
-              required: [nome, quantidade, fornecedor_id]
               properties:
                 nome:
                   type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
                 quantidade:
                   type: integer
+                categoria:
+                  type: string
                 fornecedor_id:
                   type: integer
       responses:
         200:
           description: Produto atualizado
+        404:
+          description: Produto não encontrado
 
     delete:
       summary: Remover produto
@@ -310,10 +380,12 @@ paths:
       responses:
         200:
           description: Produto removido
+        404:
+          description: Produto não encontrado
 
   /api/produtos/{id}/quantidade:
     patch:
-      summary: Atualizar quantidade do produto
+      summary: Atualizar estoque (Adicionar, Remover ou Definir)
       tags: [Produtos]
       security:
         - BearerAuth: []
@@ -333,9 +405,20 @@ paths:
               properties:
                 quantidade:
                   type: integer
+                  description: Valor a ser alterado ou definido
+                  example: 10
+                operacao:
+                  type: string
+                  enum: [adicionar, remover]
+                  description: "Se não enviado, define o valor absoluto. Opções: 'adicionar' ou 'remover'."
+                  example: "adicionar"
       responses:
         200:
-          description: Quantidade atualizada
+          description: Quantidade atualizada com sucesso
+        400:
+          description: Erro (quantidade negativa ou estoque insuficiente)
+        404:
+          description: Produto não encontrado
 
 components:
   securitySchemes:
