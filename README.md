@@ -162,6 +162,7 @@ O banco de dados possui as seguintes tabelas:
 
 - `npm run dev` - Inicia o servidor em modo desenvolvimento com nodemon
 - `npm run build` - Compila o TypeScript para JavaScript
+- `npm run test` - Executa os testes do jest
 
 ## 📦 Dependências Principais
 
