@@ -5,7 +5,7 @@
   "type": "module",
   "main": "server.ts",
   "scripts": {
-    "test": "jest --passWithNoTests",
+    "test": "jest --silent",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:models": "jest src/test/models --passWithNoTests",
